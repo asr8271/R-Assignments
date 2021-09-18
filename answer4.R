@@ -1,39 +1,34 @@
-func <- function(x){
-  fu1 <- exp(x) -1 -x - (x^2)/2 -((x^3)*exp(0.3*x))/6;
-  return(fu1);
-} 
+x<- c(21,22,23,24,21,26,28,28,27,31,32,33,36,38,39,37,42,44,49)
+hist(x,ylim=c(0,6),xlim=c(20,50),xlab="Marks in Statistics", ylab="number of student",col="red",main="Number of Students v/s Marks in Statistics",labels= TRUE)
 
-curve(func, col = 'blue', lwd = 2, from = 0, n = 100, xlim=c(0, 5), ylab='f(x)')
-abline(a=0, b=0, lty = 5)
+summary(x)
 
-newton.raphson <- function(f, a, b, tol = 1e-5, n = 1000) {
-  require(numDeriv) 
-  
-  x0 <- a 
-  k <- n 
-  
-  fa <- f(a)
-  if (fa == 0.0) {
-    return(a)
-  }
-  
-  fb <- f(b)
-  if (fb == 0.0) {
-    return(b)
-  }
-  
-  for (i in 1:n) {
-    dx <- genD(func = f, x = x0)$D[1]
-    x1 <- x0 - (f(x0) / dx) 
-    k[i] <- x1 
-    if (abs(x1 - x0) < tol) {
-      root.approx <- tail(k, n=1)
-      res <- list('root approximation' = root.approx, 'iterations' = k)
-      return(res)
+find_mode<- function(x)
+{
+  counter <- c()
+  i <- 1
+  for(num1 in x[1: (length(x) - 1)])
+  {
+    i<- i + 1
+    j<- 1
+    for(num2 in x[i: length(x)])
+    {
+      if(num1 == num2) 
+        j<- j + 1
     }
-    x0 <- x1
+    counter<- c(counter, j)
   }
-  print('Too many iterations in method')
+  counter
+  
+  data<- max(counter) 
+  
+  mode_vec<- c() 
+  
+  for(num in 1: length(counter))
+  {
+    if(data == counter[num])
+      mode_vec<- c(mode_vec, x[num])
+  }
+  return(mode_vec)
 }
-newton.raphson(func, 1, 3)
-
+print(find_mode(x))

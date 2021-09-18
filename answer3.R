@@ -1,49 +1,30 @@
-library(spuRs)
-library(nleqslv);
-library(pracma);
-library(NLRoot);
-library(MASS)
-func <- function(x){
-  fu1 <- ((x^3) + 4*(x^2) -10);
-  return(fu1);
-} 
-xstart <- (-2);
-fixedpoint(func, xstart, tol=1e-03, max.iter=100)
+x1<- c(2,4,6,10,4,7,12,20,5)
+x2<- c(10,5,5,20,4,70,40,12)
+x3<- c(2,4,2.5,34,1.6,9.5,6,2)
+summary(x1)
+summary(x2)
+summary(x3)
+OutVals1 = boxplot(x1)$out
+OutVals1
+x1<- x1[ !(x1 %in%OutVals1) ]
 
-l<- func(1.365)
-l
-curve(func, xlim=c(-3,3), col='blue', lwd=1.5, lty=2)
-abline(h=0)
-abline(v=0)
+OutVals2 = boxplot(x2)$out
+OutVals2
+x2<- x2[ !(x2 %in%OutVals2) ]
 
-nearest_root_value<- -2
+OutVals3 = boxplot(x3)$out
+OutVals3
+x3<- x3[ !(x3 %in%OutVals3) ]
 
+OutVals = boxplot(x1,x2,x3)$out
 
-#define a g(x) function
-funcg2<- function(x)
-{
-  return((10 / (x + 4))^(1/2))
-}
+OutVals2 = boxplot(x2)$out
+OutVals2
+x2<- x2[ !(x2 %in%OutVals2) ]
+OutVals = boxplot(x1,x2,x3)$out
 
-
-finding_root<- function(x)
-{
-  n = 1000
-  tol = 1e-3
-  x2<- x
-  
-  for(i in 1:n)
-  {
-    x_root<- funcg2(x2)
-    if(abs(x2 - x_root) == tol )
-      return(x_root)
-    if(abs(x2 - x_root) < tol)
-      return(x_root)
-    x2<- x_root
-    
-  }
-}
-
-
-root<- finding_root(2)
-root
+m_l<- max(c(length(x1),length(x2),length(x3)))
+df<- data.frame(col1 = c(x1,rep(NA,m_l-length(x1))),
+                col2 = c(x2,rep(NA,m_l-length(x2))),
+                col3 = c(x3,rep(NA,m_l-length(x3))))
+df
