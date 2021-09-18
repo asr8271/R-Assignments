@@ -1,0 +1,13 @@
+v1<- rep(50,times=10)
+length(v1)
+v2<- rep(1:2, times=15)
+length(v2)
+v3<- rep(-1:3,times=10)
+length(v3)
+v4<- rep(2,times=8)
+length(v4)
+v5<- c(1,5)
+length(v5)
+vec<- c(v1,v2,v3,v4,v5)
+vec
+length(vec)
