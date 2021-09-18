@@ -1,32 +1,49 @@
-a<- -1
-b<- 1
-n<- 4
-h<- (b-a)/n
-h
-x<- seq(a,b,h)
-x
-integrand <- function(x){
-  i <- 1/(2 + cos(x))
-  return(i)
-}
-y <- integrand(x)
-N <- length(y)
-sum2<- 0
-for(i in 1:N)
-{
-  if ((i == 1) | (i == N))
-  {
-    sum2<- sum2 + y[i]
-  }
-  else if (i %% 2 == 0)
-  {
-    sum2<- sum2 + 4 * y[i]
-  }
-  else
-  {
-    sum2<- sum2 + 2 * y[i]
-  }
-}
-sum2 <- sum2 * (h / 3);
-format(round(sum2,3))
+library(spuRs)
+library(nleqslv);
+library(pracma);
+library(NLRoot);
+library(MASS)
+func <- function(x){
+  fu1 <- ((x^3) + 4*(x^2) -10);
+  return(fu1);
+} 
+xstart <- (-2);
+fixedpoint(func, xstart, tol=1e-03, max.iter=100)
 
+l<- func(1.365)
+l
+curve(func, xlim=c(-3,3), col='blue', lwd=1.5, lty=2)
+abline(h=0)
+abline(v=0)
+
+nearest_root_value<- -2
+
+
+#define a g(x) function
+funcg2<- function(x)
+{
+  return((10 / (x + 4))^(1/2))
+}
+
+
+finding_root<- function(x)
+{
+  n = 1000
+  tol = 1e-3
+  x2<- x
+  
+  for(i in 1:n)
+  {
+    x_root<- funcg2(x2)
+    if(abs(x2 - x_root) == tol )
+      return(x_root)
+    if(abs(x2 - x_root) < tol)
+      return(x_root)
+    x2<- x_root
+    
+  }
+}
+
+
+root<- finding_root(2)
+root
