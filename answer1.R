@@ -1,20 +1,20 @@
-x<- c(4,-5,2)
-y<- c(6,1,-3)
-length(x)
-length(y)
-a<- (x+y)
-a
-b<- (x-y)
-b
-c<- sum(x)
-c
-d<- sum(y)
-d
-cov(x,y)
-x_mean<- mean(x)
-x_mean
-y_mean<- mean(y)
-y_mean
-covariance<- ((4-(x_mean))*(6-(y_mean)) + (-5-(x_mean))*(1-(y_mean)) + (2-(x_mean))*(-3-(y_mean)))/2
-covariance
-
+a<- 0
+b<- 10
+n<- 10
+h<- (b-a)/10;
+x<- seq(a,b,h)
+x
+integrand <- function(x){
+  i <- 2^x;
+  return(i)
+}
+y <- integrand(x)
+y
+N <- length(y)
+sum <- 0;
+for(i in 2:(N-1))
+  {
+     sum <- sum + 2*y[i]
+  }
+j<- (h/2)*(y[1] + y[N]+sum)
+j
